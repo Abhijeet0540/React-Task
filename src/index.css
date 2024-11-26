@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: AQIRA;
+    src: url(./Fonts/AQIRA.ttf);
+    font-family: rockybilly; 
+    scr: url(./Fonts/rockybilly.regular.ttf);
+    font-family: Galaksi;
+    src: url(./Fonts/Galaksi.ttf);
+}
+
+@keyframes glowing {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.glow-on-hover:before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    background-size: 400%;
+    filter: blur(5px);
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    animation: glowing 20s linear infinite;
+    border-radius: 10px;
+    z-index: -1;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    border-radius: 10px;
+    z-index: -1;
+}
+
+
+.btn:is(:hover, :focus) {
+    background: linear-gradient(to right, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    background-size: 400%;
+    animation: glowing 20s linear infinite;
+    border-radius: 10px;
+    color: #fff;
+}
+
+/* add rotate in loop */
+.timer {
+    border: 2px solid transparent;
+    animation: glowing 30s linear infinite, rotation 10s linear infinite;
+    /* border-radius: 50%; */
+    background: linear-gradient(#121212, #121212) padding-box,
+        linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000) border-box;
+}
+
+/* add rotate in loop */
+
+::-webkit-scrollbar {
+    width: 10px;
+    background: linear-gradient(#121212, #121212) padding-box,
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(#212121, #f1eeee) padding-box,
+        linear-gradient(45deg,  #dbd5d0, #cacab9) border-box;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    animation: glowing 30s linear infinite, rotation 10s linear infinite;
+}

@@ -1,0 +1,194 @@
+// Today's work:
+// React API :-
+// 1. Add loading spinner for api call. --done
+// 2. Add search to show for specific data.--done
+// 3. Add error to this specific data not found.--done
+// 4. every font data load and show in ui dynamically. --pending
+
+Today's Athlia testing update:-
+   1. web pages menu-bar testing how many pages are showing and how many pages are not showing
+
+
+
+React Js tasks =>
+-------------------------
+1. Onclick single button, background color will change // ✅
+2. 5 buttons with color name & onclick each button, background color will change✅
+3. One input box & one button, after click on button the input text will show in below as output✅
+4. Point no. 3 with reset button ✅
+5. One input box only & on input type the text will show in below as output  ✅
+6. Two input box with plus symbol & on click "Add" button, addition will show in below as output ✅
+7. Perform Subtraction, Multiplication & Division operation with same file(Point no. 6)  ✅
+8. Email id input with required validation ✅
+9. Email id input with email is valid or not validation ✅
+10. Phone number input to allow only numbers validation ✅
+11. Validations for Name, Email, Phone, Gender, Hobbies, City On click submit button ✅
+12 On input type validation hide for Name, Email, Phone, Gender, Hobbies, City ✅
+13. Show form data in table after click on submit button ✅
+14. Point no. 13 with Edit & delete functionality ✅
+15. Onclick button, timer from 0 to 60 seconds. 
+16. Point no. 16, after page refresh timer will start from where it was pause
+17. Save Point no. 11 form data ✅
+18. Show data in table ✅
+19. Edit & delete functionality with data ✅
+20. Google font family using  api key to show font family in ui 
+
+
+
+
+import React, { useEffect, useRef, useState } from 'react';
+
+const StopWatch = () => {
+    // Proper initialization of time from localStorage or 0
+    const [time, setTime] = useState(() => {
+        return parseInt(localStorage.getItem('time'), 10) || 0;
+    });
+
+    const intervalRef = useRef();
+    const [isRunning, setIsRunning] = useState(() => {
+        return JSON.parse(localStorage.getItem('isRunning')) || false;
+    });
+
+    const StartTimer = () => {
+        if (time >= 60) {
+            ResetTimer();
+        }
+        if (!intervalRef.current) {
+            setIsRunning(true);
+            localStorage.setItem('isRunning', true); // Save running state
+            intervalRef.current = setInterval(() => {
+                setTime((prevTime) => {
+                    if (prevTime < 60) {
+                        const newTime = prevTime + 1;
+                        localStorage.setItem('time', newTime); // Save time to localStorage
+                        return newTime;
+                    } else {
+                        clearInterval(intervalRef.current); // Stop when 60 is reached
+                        intervalRef.current = null;
+                        localStorage.setItem('isRunning', false);
+                        setIsRunning(false);
+                        return prevTime;
+                    }
+                });
+            }, 1000); // Correct timer interval to 1 second
+        }
+    };
+
+    const StopTimer = () => {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+        setIsRunning(false);
+        localStorage.setItem('isRunning', false);
+        localStorage.setItem('time', time); // Save the current time
+    };
+
+    const ResetTimer = () => {
+        setTime(0); // Reset time to 0
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+        setIsRunning(false);
+        localStorage.setItem('isRunning', false);
+        localStorage.removeItem('time'); // Clear time from localStorage
+    };
+
+    // Automatically resume timer on page refresh if it was running
+    useEffect(() => {
+        if (isRunning) {
+            StartTimer();
+        }
+        return () => {
+            clearInterval(intervalRef.current);
+        };
+    }, [isRunning]); // Re-run only when `isRunning` changes
+
+    return (
+        <div className="w-screen h-screen px-20 py-20 items-center justify-center flex flex-col gap-5 text-white bg-zinc-900">
+            <div className="timer bg-zinc-800 lg:w-[20vw] lg:h-[40vh] w-[45vw] h-[20vh] flex items-center justify-center rounded-full">
+                <span className="text-5xl font-bold">{time}s</span>
+            </div>
+            <div className="flex gap-5">
+                <button
+                    className="px-10 py-3 text-white bg-yellow-900 rounded-lg uppercase"
+                    onClick={StartTimer}
+                    disabled={isRunning} // Disable Start button when running
+                >
+                    Start
+                </button>
+                <button
+                    className="px-10 py-3 text-white bg-yellow-900 rounded-lg uppercase"
+                    onClick={StopTimer}
+                >
+                    Stop
+                </button>
+                <button
+                    className="px-10 py-3 text-white bg-yellow-900 rounded-lg uppercase"
+                    onClick={ResetTimer}
+                >
+                    Reset
+                </button>
+            </div>
+        </div>
+    );
+};
+
+export default StopWatch;
+
+
+
+///Athlia
+
+// 
+
+// all pages
+Dashboard		
+Achievement					
+Assign Activity
+Assign Report Assessment					
+Assign Batch					
+Attendance
+Banner Setting					
+BMI Calculator					
+Board					
+Certificate verification					
+Circular
+Coaches / PET / Trainer List					
+Communication					
+Classes And Divisions					
+Curriculum Tracker
+Daily Time Table					
+Event Calendar					
+Equipment Stock Statement					
+E Commerce
+Extra Curricular Activity					
+Gallery					
+Holiday List					
+Leave History					
+News					
+Notification					
+Parent List					
+Payments
+Payment Status					
+Player List										
+Post School Activity					
+PSA Payment Status					
+QAG
+Reports Assessment					
+Rules and Regulations					
+Student List					
+Social Media					
+Sponsership / Donate					
+Sports Battle
+Sport Tour And Trip					
+Teams					
+Vendor List
+
+// have a name but change in ui
+Equipment Stock Statement	 //   Equipment Inventory
+
+// don't have in ui
+Monthly Planner
+Player BMI Report
+Self BMI Report					
+Student BMI Report
+
+// 
