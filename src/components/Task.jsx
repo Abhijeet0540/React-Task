@@ -57,6 +57,10 @@ const Task = () => {
                     link='GoogleFont'
                     description="Google font family using api key to show font family in ui "
                 />
+                <TaskItem
+                    link='DNAAnimation'
+                    description="DNA Animation "
+                />
             </div>
         </div>
     )
